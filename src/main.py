@@ -104,21 +104,7 @@ def policy_improvement(board, policy):
     return new_policy
 
 
-def list_of_pngs_to_mp4(images, output_path, duration=200):
-    # Create an empty list to store the frames
-    frames = []
 
-    for image_path in images:
-        # Open each image and convert it to RGBA format
-        img = Image.open(image_path).convert("RGBA")
-        frames.append(img)
-
-    # Save the frames as an animated GIF
-    frames[0].save(output_path, format="GIF",
-                   append_images=frames[1:],
-                   save_all=True,
-                   duration=duration,
-                   loop=0)
 
 
 
@@ -127,8 +113,8 @@ def policy_iteration():
     policy = make_policy()
     board = make_board()
     i = 0
-    print_board_and_policy(board, policy, f"policy_iteration_{i}")
-    img_names.append(f"policy_iteration_{i}.png")
+    print_board_and_policy(board, policy, f"images/policy_iteration_{i}")
+    img_names.append(f"images/policy_iteration_{i}.png")
     i += 1
     new_board = policy_evaluation(board, policy)
     new_policy = policy_improvement(new_board, policy)
@@ -138,10 +124,10 @@ def policy_iteration():
         board = new_board
         new_board = policy_evaluation(board, policy)
         new_policy = policy_improvement(new_board, policy)
-        print_board_and_policy(board, policy, f"policy_iteration_{i}")
-        img_names.append(f"policy_iteration_{i}.png")
+        print_board_and_policy(board, policy, f"images/policy_iteration_{i}")
+        img_names.append(f"images/policy_iteration_{i}.png")
         i += 1
-    list_of_pngs_to_mp4(img_names, "policy_iteration.gif", duration=1000)
+    list_of_pngs_to_gif(img_names, "gifs/policy_iteration.gif", duration=1000)
 
 
 def main():

@@ -1,5 +1,7 @@
 import os
 
+from PIL import Image
+
 NORTH = 0
 EAST = 1
 SOUTH = 2
@@ -9,6 +11,7 @@ WEST = 3
 def print_board_and_policy(board, policy, filename="table"):
     cell_width = 80
     cell_height = 30
+    os.makedirs("images", exist_ok=True)
     with open(f"{filename}.dot", "w") as f:
         # write board 3x4 matrix as a table
         f.write("digraph table {\n")
@@ -43,3 +46,21 @@ def print_board_and_policy(board, policy, filename="table"):
 
     os.system(f"dot -Tpng {filename}.dot -o {filename}.png")
     os.system(f"rm {filename}.dot")
+
+
+def list_of_pngs_to_gif(images, output_path, duration=200):
+    os.makedirs("gifs", exist_ok=True)
+    # Create an empty list to store the frames
+    frames = []
+
+    for image_path in images:
+        # Open each image and convert it to RGBA format
+        img = Image.open(image_path).convert("RGBA")
+        frames.append(img)
+
+    # Save the frames as an animated GIF
+    frames[0].save(output_path, format="GIF",
+                   append_images=frames[1:],
+                   save_all=True,
+                   duration=duration,
+                   loop=0)
