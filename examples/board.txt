@@ -1,0 +1,4 @@
+board 3 x 4
+set 3, 0 to 1
+set 3, 1 to -1
+block 1,1
