@@ -32,9 +32,9 @@ class Parser:
 
     def board_definition(self):
         self.eat(TokenType.BOARD)
-        width = self.eat(TokenType.UINT)
-        self.eat(TokenType.X)
         height = self.eat(TokenType.UINT)
+        self.eat(TokenType.X)
+        width = self.eat(TokenType.UINT)
         self.spec.set_width(width.value)
         self.spec.set_height(height.value)
 
